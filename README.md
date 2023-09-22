@@ -1,6 +1,10 @@
-Temperature Alert Agent
+# Temperature Alert agent
 
-Description
+description
 
-Instructions
+## Installation
 
+Open terminal and run the command to install required packages.
+```terminal
+pip install -r requirements.txt
+```
