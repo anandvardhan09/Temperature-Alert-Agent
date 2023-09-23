@@ -1,2 +1,4 @@
 /venv
-/src/.env
+.env
+pipfile
+__pycache__ 
