@@ -1,1 +1,3 @@
 pipfile
+__pycache__
+.env
