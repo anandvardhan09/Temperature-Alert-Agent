@@ -1,19 +1,22 @@
 from uagents import Agent, Context
 import requests
 from uagents.setup import fund_agent_if_low
-# import os
-# from dotenv import load_dotenv, dotenv_values
+import os,sys
+from dotenv import load_dotenv
+# from uagents.resolver import get_agent_address
 
-# os.getenv("API_key")
+load_dotenv()
 
+api_key = os.getenv("API_KEY")
 
-api_key="d"
-# base_url variable to store url
-base_url = "http://api.openweathermap.org/data/2.5/weather?"
+base_url = "http://api.openweathermap.org/data/2.5/weather?"  # base_url variable to store api url
  
-# Give city name
-city_name = input("Enter city name : ")
+
+city_name = input("Enter city name : ")  # Give city name
+max_temp = int(input("Set the maximum temperature in Celsius : ")) # Set maximum temperature
+min_temp = int(input("Set the minimum temperature in Celsius : ")) # Set minimum temperature
  
+
 # complete url address
 url = base_url + "appid=" + api_key + "&q=" + city_name
      
@@ -26,18 +29,27 @@ temperature = Agent(name="Temperature",
                     port=8000,                                   
                     )
 
-fund_agent_if_low(temperature.wallet.address())
+# fund_agent_if_low(temperature.wallet.address())
 
 
-@temperature.on_interval(period=100.0)
-async def fetch_temperature(ctx: Context):
+@temperature.on_interval(period=5.0)
+async def fetch_and_check_temperature(ctx: Context):
         res = requests.get(url)
         
+        ctx.logger.info("start")
+
         if res.json()['cod'] == '404':
-             print("No City found")
+          ctx.logger.info("No City found")
+          os.execl(sys.executable, sys.executable, *sys.argv) 
         else:
-          temp_in_kelvin=round(res.json()['main']['temp'])
-          print(temp_in_kelvin)
+          temp = round(res.json()['main']['temp']) - 273
+          ctx.logger.info(temp)
+
+        if temp > max_temp:
+            ctx.logger.info("hey its too hot here")
+        if temp < min_temp:
+            ctx.logger.info("ohhh its cold")    
+
 
 
 
