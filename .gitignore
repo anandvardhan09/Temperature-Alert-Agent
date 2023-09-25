@@ -2,3 +2,6 @@
 .env
 pipfile
 __pycache__ 
+hackAI/
+hackAI
+/hackAI
