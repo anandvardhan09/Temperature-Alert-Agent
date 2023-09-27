@@ -17,7 +17,7 @@ if platform == "windows":
     activate_command = "hackAI\Scripts\activate"
 elif platform == "linux":
     activate_command = "source hackAI/bin/activate"
-
+time.sleep(10)
 # activate pyenv
 os.system(activate_command)
 
