@@ -1,10 +1,8 @@
-from uagents import Agent, Context
+from uagents import Bureau
 
-alice = Agent(name="alice", seed="alice recovery phrase")
-
-@alice.on_interval(period=2.0)
-async def say_hello(ctx: Context):
-    ctx.logger.info(f'hello, my name is {ctx.name}')
+from agents.Temperature import temperature
 
 if __name__ == "__main__":
-    alice.run()
+    bureau = Bureau(endpoint="http://127.0.0.1:8000/submit", port=8000)
+    bureau.add(temperature)
+    bureau.run()

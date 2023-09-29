@@ -1,3 +1,4 @@
-pipfile
-__pycache__
+/venv
 .env
+pipfile
+__pycache__ 
