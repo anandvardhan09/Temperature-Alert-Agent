@@ -3,7 +3,7 @@ import requests
 from uagents.setup import fund_agent_if_low
 import os, sys
 from dotenv import load_dotenv
-
+from helper import take_temperature_input
 
 load_dotenv()
 
@@ -14,13 +14,10 @@ base_url = "http://api.openweathermap.org/data/2.5/weather"  # base_url variable
 
 city_name = input("Enter city name : ")  # Give city name
 
-max_temp = int(
-    input("Set the maximum temperature in Celsius : ")
-)  # Set maximum temperature
+max_temp = take_temperature_input("Set the maximum temperature in Celsius : ")  # Set maximum temperature
 
-min_temp = int(
-    input("Set the minimum temperature in Celsius : ")
-)  # Set minimum temperature
+min_temp = take_temperature_input("Set the minimum temperature in Celsius : ")
+    # Set minimum temperature
 
 
 # complete url address
